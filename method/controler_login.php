@@ -1,5 +1,6 @@
 <?php
 include_once("login_class.php");
+include_once('funcionPro.php');
 if(!isset($_SESSION))session_start();
 if(!isset($_SESSION['id']))$_SESSION['id'] = 0;
 
@@ -16,7 +17,7 @@ if (!isset($_SESSION['bloqueado_hasta'])) {
 if (isset($_GET['recorrido'])) {
     $recorrido = intval($_GET['recorrido']);
     $documento = isset($_POST['documento']) ? $_POST['documento'] : '';
-    $contraseña = isset($_POST['contraseña']) ? $_POST['contraseña'] : '';
+    $contraseña = isset($_POST['contraseña']) ? FuncionPro::vacunaXxs($_POST['contraseña']) : '';
 
     // Verificar si la cuenta está bloqueada
     if ($documento && isset($_SESSION['bloqueado_hasta'][$documento])) {
@@ -75,11 +76,11 @@ if (isset($_GET['recorrido'])) {
 
 
     if ($recorrido == 2) {
-        $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
-        $apellido = isset($_POST['apellido']) ? $_POST['apellido'] : '';
-        $correo = isset($_POST['correo']) ? $_POST['correo'] : '';
+        $nombre = isset($_POST['nombre']) ? FuncionPro::vacunaXxs($_POST['nombre']) : '';
+        $apellido = isset($_POST['apellido']) ? FuncionPro::vacunaXxs($_POST['apellido']) : '';
+        $correo = isset($_POST['correo']) ? FuncionPro::vacunaXxs($_POST['correo']) : '';
         $fecha = isset($_POST['fecha']) ? $_POST['fecha'] : '';
-        $contraseña = isset($_POST['contraseña']) ? $_POST['contraseña'] : '';
+        $contraseña = isset($_POST['contraseña']) ? FuncionPro::vacunaXxs($_POST['contraseña']) : '';
     
 
         $registro = Loguin::registraUsuarios($documento, $nombre, $apellido, $correo, $contraseña, $fecha);

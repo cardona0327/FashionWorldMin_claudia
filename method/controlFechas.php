@@ -1,6 +1,6 @@
 <?php
 require_once 'modeloFechaEspe.php'; // Asegúrate de que la ruta sea correcta
-
+include_once('funcionPro.php');
 // Establece la conexión a la base de datos
 
 include("db_fashion/cb.php");
@@ -17,7 +17,7 @@ if (isset($_POST['accion'])) {
     $accion = $_POST['accion'];
 
     if ($accion == 'agregar') {
-        $evento = $_POST['evento'];
+        $evento = FuncionPro::vacunaXxs($_POST['evento']);
         $fechaInicio = $_POST['fecha_inicio'];
         $fechaFin = $_POST['fecha_fin'];
         $colorEvento = $_POST['color_evento'];

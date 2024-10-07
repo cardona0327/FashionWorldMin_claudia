@@ -1,6 +1,7 @@
 
 <?php
-include("modelo.php"); // Incluir el archivo con las funciones
+include_once("modelo.php"); // Incluir el archivo con las funciones
+include_once('funcionPro.php');
 
 session_start(); // Asegúrate de iniciar la sesión
 
@@ -8,7 +9,7 @@ if (isset($_GET['accion'])) {
     $accion = $_GET['accion'];
 
     if ($accion == "agregar") {
-        $nombre_deseo = $_POST['nombre_deseo']; // Cambiar de $_GET a $_POST
+        $nombre_deseo = FuncionPro::vacunaXxs($_POST['nombre_deseo']); // Cambiar de $_GET a $_POST
         $documento_usuario = $_SESSION['id'];
         $foto_referencia = '';
 
