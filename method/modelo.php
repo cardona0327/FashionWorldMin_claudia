@@ -18,6 +18,7 @@ class Modelo{
         } else {
             return false; // Retorna false si no hay resultados
         }
+        $conexion->close();
     }
 /**
  * Método para registrar un nuevo usuario en la base de datos.
@@ -37,6 +38,7 @@ public static function sqlRegistar($documento, $nombre, $apellido, $correo, $con
             VALUES ('$documento', '$nombre', '$apellido', '$correo', '$contraseña', '$fecha', '2')"; // Consulta SQL para insertar el usuario
     $resultado = $conexion->query($sql); // Ejecuta la consulta
     return $resultado; // Retorna el resultado de la operación
+    $conexion->close();
 }
     /**
  * Método para obtener los detalles del perfil de un usuario a partir de su documento.
@@ -50,6 +52,7 @@ public static function sqlPerfil($id) {
     $sql = "SELECT * FROM tb_usuarios WHERE documento = '$id'"; // Consulta SQL para obtener los datos del perfil
     $resultado = $conexion->query($sql); // Ejecuta la consulta
     return $resultado; // Retorna el resultado de la consulta
+    $conexion->close();
 }
 /**
  * Método para obtener el rol de un usuario a partir de su documento.
@@ -62,6 +65,7 @@ public static function sqlRol($id) {
     include("db_fashion/cb.php"); // Incluye la conexión a la base de datos
     $sql = "SELECT rol FROM tb_usuarios WHERE documento = '$id'"; // Consulta SQL para obtener el rol del usuario
     return $resultado = $conexion->query($sql); // Ejecuta la consulta y retorna el resultado
+    $conexion->close();
 }
     /**
  * Método para agregar un nuevo producto a la base de datos.
@@ -82,6 +86,7 @@ public static function sqlAgregarPro($nombre, $precio, $cantidad, $descripcion, 
     $sql = "INSERT INTO tb_productos(nombre_producto, precio, cantidad, detalles, color, tallas, ruta_img, id_categoria) ";
     $sql .= "VALUES ('$nombre', '$precio', '$cantidad', '$descripcion', '$color', '$tallas', '$imagen', '$id_categoria')"; // Inserta un nuevo producto
     return $resultado = $conexion->query($sql); // Ejecuta la consulta y retorna el resultado
+    $conexion->close();
 }
 /**
  * Método para obtener todas las categorías de la base de datos.
@@ -101,6 +106,7 @@ public static function obtenerCategorias() {
     }
     
     return $categorias; // Retorna el arreglo de categorías
+    $conexion->close();
 }
     /**
  * Método para mostrar productos de la base de datos.
@@ -116,6 +122,7 @@ public static function sqlMostrarPro($buscar = null) {
     }
 
     return $resultado = $conexion->query($sql); // Ejecuta la consulta y retorna el resultado
+    $conexion->close();
 }
     /**
  * Método para contar los 'likes' de un producto.
@@ -133,6 +140,7 @@ public static function sqlConteoLikes($id_pro) {
     } else {
         return 0; // Retorna 0 si no hay 'likes'
     }
+    $conexion->close();
 }
 /**
  * Método para agregar una nueva categoría a la base de datos.
@@ -146,6 +154,7 @@ public static function sqlAgregarCate($id_categoria, $categoria) {
     $sql = "INSERT INTO tb_categoria(id_categoria, categoria) "; 
     $sql .= "VALUES ('$id_categoria', '$categoria')"; // Consulta para insertar la nueva categoría
     return $resultado = $conexion->query($sql); // Ejecuta la consulta y retorna el resultado
+    $conexion->close();
 }
     /**
  * Método para obtener todas las categorías de la base de datos.
@@ -156,6 +165,7 @@ public static function sqlVerCate() {
     include("db_fashion/cb.php"); // Conexión a la base de datos
     $sql = "SELECT * FROM tb_categoria"; // Consulta para seleccionar todas las categorías
     return $resultado = $conexion->query($sql); // Ejecuta la consulta y retorna el resultado
+    $conexion->close();
 }
  /**
  * Método para eliminar un producto de la base de datos y sus likes asociados.
@@ -177,6 +187,7 @@ public static function sqlEliminarPro($id) {
     // Eliminar el producto de la tabla tb_productos
     $sqlProducto = "DELETE FROM tb_productos WHERE id_producto = '$id'";
     return $resultado = $conexion->query($sqlProducto); // Retorna el resultado de la eliminación del producto
+    $conexion->close();
 }
 
     /**
@@ -195,6 +206,7 @@ public static function sqlEliminarCate($id) {
     // Eliminar la categoría de la tabla tb_categoria
     $sql = "DELETE FROM tb_categoria WHERE id_categoria = '$id'";
     return $resultado = $conexion->query($sql); // Retorna el resultado de la eliminación de la categoría
+    $conexion->close();
 }
     /**
  * Método para obtener una categoría específica de la base de datos.
@@ -217,6 +229,7 @@ public static function sqlCategorias($des, $idCate) {
     $sql .= "WHERE id_categoria = '$idCate'";
     
     return $resultado = $conexion->query($sql); // Retorna el resultado de la consulta
+    $conexion->close();
 }
     /**
  * Método para editar una categoría existente en la base de datos.
@@ -234,6 +247,7 @@ public static function sqlEditar($id_categoria, $categoria) {
     $sql .= "WHERE id_categoria = '$id_categoria' ";
     
     return $resultado = $conexion->query($sql); // Retorna el resultado de la consulta
+    $conexion->close();
 }
     /**
  * Método para eliminar un usuario y sus registros relacionados en la base de datos.
@@ -331,6 +345,7 @@ public static function sqlDatoPro($des, $idPro) {
     
     // Ejecuta la consulta y retorna el resultado
     return $resultado = $conexion->query($sql);
+    $conexion->close();
 }
     /**
  * Método para actualizar la información de un producto en la base de datos.
@@ -363,6 +378,7 @@ public static function sqlEditarPro($id_producto, $nombre, $precio, $cantidad, $
             
     // Ejecuta la consulta y retorna el resultado
     return $resultado = $conexion->query($sql);
+    $conexion->close();
 }
 /**
  * Método para obtener todos los registros de la tabla que cuenta usuarios eliminados.
@@ -378,6 +394,7 @@ public static function sqlConteoUserEli() {
 
     // Ejecuta la consulta y retorna el resultado
     return $resultado = $conexion->query($sql);
+    $conexion->close();
 }
     /**
  * Método para obtener todos los registros de la tabla que cuenta usuarios registrados.
@@ -393,6 +410,7 @@ public static function sqlConteoUserReg() {
 
     // Ejecuta la consulta y retorna el resultado
     return $resultado = $conexion->query($sql);
+    $conexion->close();
 }
     /**
  * Método para obtener todos los registros de la tabla que cuenta usuarios actualizados.
@@ -408,6 +426,7 @@ public static function sqlConteoUserActu() {
 
     // Ejecuta la consulta y retorna el resultado
     return $resultado = $conexion->query($sql);
+    $conexion->close();
 }
     /**
  * Método para obtener todos los registros de la tabla que cuenta productos eliminados.
@@ -423,6 +442,7 @@ public static function sqlConteoProEli() {
 
     // Ejecuta la consulta y retorna el resultado
     return $resultado = $conexion->query($sql);
+    $conexion->close();
 }
     /**
  * Método para obtener todos los registros de la tabla que cuenta productos registrados.
@@ -438,6 +458,7 @@ public static function sqlConteoProReg() {
 
     // Ejecuta la consulta y retorna el resultado
     return $resultado = $conexion->query($sql);
+    $conexion->close();
 }
     /**
  * Método para obtener todos los registros de la tabla que cuenta productos actualizados.
@@ -453,6 +474,7 @@ public static function sqlConteoProActu() {
 
     // Ejecuta la consulta y retorna el resultado
     return $resultado = $conexion->query($sql);
+    $conexion->close();
 }
     /**
  * Método para cambiar la contraseña de un usuario en la base de datos.
@@ -471,6 +493,7 @@ public static function sqlCambiarClave($nuevaClave, $id) {
 
     // Ejecuta la consulta y retorna el resultado
     return $resultado = $conexion->query($sql);
+    $conexion->close();
 }
     /**
  * Método para cambiar la contraseña de un usuario en la base de datos, encriptándola antes de almacenarla.
@@ -497,6 +520,7 @@ public static function sqlCambiarClaveEncrip($nuevaClave, $id) {
 
     // Ejecuta la consulta y retorna el resultado
     return $resultado = $conexion->query($sql);
+    $conexion->close();
 }
    /**
  * Método para actualizar el rol de un usuario en la base de datos.
@@ -518,6 +542,7 @@ public static function sqlActuRol($idUser, $rol) {
 
     // Ejecuta la consulta y retorna el resultado
     return $resultado = $conexion->query($sql);
+    $conexion->close();
 }
     /**
  * Método para actualizar la información de un usuario en la base de datos.
@@ -538,6 +563,7 @@ public static function sqlActualizarUser($idUser, $nombre, $apellido, $correo) {
 
     // Ejecuta la consulta y retorna el resultado
     return $consulta = $conexion->query($sql);
+    $conexion->close();
 }
     /**
  * Método para verificar si la contraseña proporcionada coincide con la registrada en la base de datos para un usuario específico.
@@ -556,6 +582,7 @@ public static function verficaClave($contraseñaN, $doc) {
 
     // Ejecuta la consulta y retorna el resultado
     return $resultado = $conexion->query($sql);
+    $conexion->close();
 }
     /**
  * Método para buscar un usuario en la base de datos a través de su correo electrónico.
@@ -574,6 +601,7 @@ public static function sqlBuscarId($email) {
 
     // Ejecuta la consulta y retorna el resultado
     return $resultado = $conexion->query($sql);
+    $conexion->close();
 }
 /**
  * Método para buscar un usuario en la base de datos basado en diferentes criterios.
@@ -600,6 +628,7 @@ public static function sqlBuscarUser($des, $busqueda) {
 
     // Ejecuta la consulta y retorna el resultado
     return $resultado = $conexion->query($sql);
+    $conexion->close();
 }
     /**
  * Método para buscar datos de un usuario específico.
@@ -625,6 +654,7 @@ public static function buscarDatosUser($des, $id) {
         $salida = $fila[0];
     }
     return $salida;
+    $conexion->close();
 }
     /**
  * Método para mostrar información de un usuario o lista de usuarios.
@@ -637,6 +667,7 @@ public static function sqlMostrarUser($buscaUser = null) {
     $sql = "select * from tb_usuarios ";
     $sql .= "where documento like '%$buscaUser'";
     return $resultado = $conexion->query($sql);
+    $conexion->close();
 }
     /**
  * Método para mostrar un dato específico de un usuario según el tipo de dato solicitado.
@@ -659,6 +690,7 @@ public static function sqlMostrarDaUser($des, $idUser) {
     $sql = "select $dato from tb_usuarios ";
     $sql .= "WHERE documento = $idUser";
     return $resultado = $conexion->query($sql);
+    $conexion->close();
 }
     /**
  * Método para verificar si un usuario ha dado 'like' a un producto específico.
@@ -674,6 +706,7 @@ public static function sqlVerificLike($usuario_id, $producto_id) {
     // Consulta para verificar el like para un producto específico
     $sql = "SELECT COUNT(*) as count FROM tb_likes WHERE usuario_id = '$usuario_id' AND producto_id = '$producto_id'";
     return $conexion->query($sql);
+    $conexion->close();
 }    
 /**
  * Método para agregar o eliminar un 'like' de un usuario a un producto.
@@ -700,6 +733,7 @@ public static function sqlAgregarLike($usuario_id, $producto_id) {
 
     // Ejecutar la operación y devolver el resultado
     return $conexion->query($operacion);
+    $conexion->close();
 }
     /**
  * Método para actualizar la foto de perfil de un usuario en la base de datos.
@@ -723,6 +757,7 @@ public static function sqlActuFoto($foto, $id_user) {
         echo "Error en la consulta SQL: " . $conexion->error;
         return false;
     }
+    $conexion->close();
 }
     /**
  * Método para obtener todas las categorías de productos desde la base de datos.
@@ -745,6 +780,7 @@ public static function obtenerCategoriasUser() {
     } else {
         return null; // No hay categorías encontradas
     }
+    $conexion->close();
 }
 /**
  * Método para obtener los productos asociados a una categoría específica.
@@ -761,6 +797,7 @@ public static function obtenerProductosPorCategoria($id_categoria) {
 
     // Ejecutar la consulta y devolver el resultado
     return $resultado = $conexion->query($sql);
+    $conexion->close();
 }
     /**
  * Método para obtener todos los productos que han sido marcados como favoritos.
@@ -776,6 +813,7 @@ public static function sqlVerFavoritos() {
 
     // Ejecutar la consulta y devolver el resultado
     return $consulta = $conexion->query($sql);
+    $conexion->close();
 }
     /**
  * Método para obtener todos los productos en el carrito de compras.
@@ -791,6 +829,7 @@ public static function sqlverCarrito() {
 
     // Ejecutar la consulta y devolver el resultado
     return $consulta = $conexion->query($sql);
+    $conexion->close();
 }
     /**
  * Método para agregar un producto a la lista de deseos de un usuario.
@@ -811,6 +850,7 @@ public static function agregarDeseo($documento_usuario, $nombre_deseo, $foto_ref
     
     // Ejecutar la consulta y devolver el resultado
     return $resultado = $conexion->query($sql);
+    $conexion->close();
 }
     /**
  * Método para obtener la lista de deseos de un usuario específico.
@@ -828,6 +868,7 @@ public static function obtenerDeseosUsuario($documento_usuario) {
     
     // Ejecutar la consulta y devolver el resultado
     return $resultado = $conexion->query($sql);
+    $conexion->close();
 }
 /**
  * Método para obtener todos los deseos junto con la foto del usuario que los creó.
@@ -845,6 +886,7 @@ public static function sqlTodosDeseosConUsuario() {
     
     // Retorna el resultado de la consulta
     return $conexion->query($sql);  
+    $conexion->close();
 }
 /**
  * Método para eliminar un deseo de la lista de deseos del usuario.
@@ -871,6 +913,7 @@ public static function eliminarDeseo($id_deseo) {
     
     // Retorna el resultado de la operación
     return $resultado;
+    $conexion->close();
 }
 /**
  * Método para agregar un producto a la lista de favoritos de un usuario.
@@ -898,6 +941,7 @@ public static function sqlAgregarAFavoritos($documentoUsuario, $idProducto, $nom
                         VALUES ('$documentoUsuario', '$idProducto', '$nombreProducto')";
         return $conexion->query($sqlAgregar) ? 1 : 0; // 1 si fue agregado, 0 si hubo un error
     }
+    $conexion->close();
 }
 /**
  * Método para mostrar los productos favoritos de un usuario.
@@ -916,6 +960,7 @@ public static function sqlMostrarFavoritos($documentoUsuario) {
             WHERE f.documento_usuario = '$documentoUsuario'";
     
     return $resultado = $conexion->query($sql); // Retorna el resultado de la consulta
+    $conexion->close();
 }
 /**
  * Método para eliminar un producto de la lista de favoritos de un usuario.
@@ -931,6 +976,7 @@ public static function sqlEliminarFavo($id_favo) {
     $sql = "DELETE FROM tb_favoritos WHERE id_favo = '$id_favo'";
     
     return $resultado = $conexion->query($sql); // Retorna el resultado de la operación
+    $conexion->close();
 }
 /**
  * Método para mostrar todos los comentarios junto con la información del usuario que los publicó.
@@ -948,6 +994,7 @@ public static function sqlMostrarComentarios() {
             ORDER BY c.fecha_publicacion DESC";
     
     return $conexion->query($sql); // Retorna el resultado de la consulta
+    $conexion->close();
 }
 /**
  * Método para mostrar todas las respuestas a un comentario específico junto con la información del usuario que las publicó.
@@ -967,6 +1014,7 @@ public static function sqlMostrarRespuestas($idComentario) {
             ORDER BY r.fecha_publicacion ASC";
     
     return $conexion->query($sql); // Retorna el resultado de la consulta
+    $conexion->close();
 }
 /**
  * Método para insertar un nuevo comentario en la base de datos.
@@ -985,6 +1033,7 @@ public static function sqlAgregarComentario($documentoUsuario, $mensaje) {
     
     // Ejecuta la consulta y devuelve el resultado
     return $conexion->query($sql);
+    $conexion->close();
 }
 /**
  * Método para insertar una nueva respuesta a un comentario en la base de datos.
@@ -1004,6 +1053,7 @@ public static function sqlAgregarRespuesta($documentoUsuario, $mensaje, $idComen
     
     // Ejecuta la consulta y devuelve el resultado
     return $conexion->query($sql);
+    $conexion->close();
 }
 /**
  * Método para eliminar un comentario de la base de datos.
@@ -1024,6 +1074,7 @@ public static function sqlEliminarComentario($idComentario) {
     } else {
         return false;  // Fallo en la eliminación
     }
+    $conexion->close();
 }
 /**
  * Método para eliminar una respuesta de la base de datos.
@@ -1044,6 +1095,7 @@ public static function sqlEliminarRespuesta($idRespuesta) {
     } else {
         return false;  // Fallo en la eliminación
     }
+    $conexion->close();
 }
 /**
  * Método para obtener las compras realizadas por un usuario específico.
@@ -1080,6 +1132,7 @@ public static function sqlComprasUsuario($id_usuario) {
     } else {
         return []; // Retorna un array vacío si no hay productos
     }
+    $conexion->close();
 }
 /**
  * Método para verificar si un usuario es el autor de una respuesta específica.
@@ -1106,6 +1159,7 @@ public static function verifiRespuestas($id_user, $id_respuesta) {
     } else {
         return false;  // En caso de error, retornamos false
     }
+    $conexion->close();
 }
 /**
  * Método para verificar si un usuario es el autor de un comentario específico.
@@ -1132,6 +1186,7 @@ public static function verifiComentarios($id_user, $id_comentario) {
     } else {
         return false;  // En caso de error, retornamos false
     }
+    $conexion->close();
 } 
 
 }
